@@ -13,6 +13,9 @@ Javino	KEYWORD1
 #######################################
 
 sendmsg	KEYWORD2
+getmsg	KEYWORD2
+availablemsg KEYWORD2
+readserial	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

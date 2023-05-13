@@ -1,160 +1,84 @@
 /*
   Javino.cpp - Library communication for Arduino and Jason.
-Version Stable 1.1
+Version Stable 1.6
   Created by Lazarin, NM and Pantoja, CE - January 29, 2015.
 	nilson.lazarin@cefet-rj.br
 	carlos.pantoja@cefet-rj.br
 
-  Updated in 2022-06-18
+  Updated in 2023-05-12
 */
 
 #include "Arduino.h"
 #include "Javino.h"
 
-Javino::Javino()
-{
-
+void Javino::start(int baudRate){
+  _finalymsg.reserve(255);
+  _sizeMSG = "";
+  _finalymsg = "";
+  _msg = false;
+  _size = 0;
+  _round = 0;
+  _time = 0;
+  Serial.begin(baudRate);
 }
 
-void Javino::sendmsg(String m)
-{
-	m = "fffe"+int2hex(m.length())+m;
-	Serial.println(m);
+void Javino::sendMsg(String m){
+  char buffer[3];
+  snprintf(buffer, sizeof(buffer), "%02X", m.length()); 
+  String sizeofMSG = buffer; 
+	Serial.print("fffe"+sizeofMSG+m);
 }
 
-String Javino::getmsg()
-{
-   return _finalymsg;
+String Javino::getMsg(){
+  return _finalymsg;
 }
 
-boolean Javino::availablemsg(){
-    //_msg = false;
-    inicializa();
-	return _msg;
+boolean Javino::availableMsg(){
+  boolean isMsg = _msg;
+  _msg=false;
+	return isMsg;
 }
 
-void Javino::inicializa(){
-  _x         = 261;
-  _d         = 0;
-  _n         = 10;
-  /*
-  for( int i = 0; i < sizeofarraymsg;  ++i ){
-    _arraymsg[i] = (char)0;
-  }
-  */
-  listening();
-}
-
-void Javino::listening(){
-  if(Serial.available()>0){
-    registra();
-  }
-  else{
-    timeout();
-  }
-}
-
-void Javino::timeout(){
-  delay(5);
-  _n--;
-  if(_n>0){
-    listening();
-  }else{
-    aborta();
-  }
-}
-
-void Javino::registra(){
-    _arraymsg[_d]=Serial.read();
-    _d++;
-    _x--;
-    _n=5;
-    monitormsg();
-}
-
-void Javino::monitormsg(){
-
-  if((_d==4)){
-        if((_arraymsg[0]!='f')||(_arraymsg[1]!='f')||(_arraymsg[2]!='f')||(_arraymsg[3]!='e')){
-                aborta();
-        }
-  }else if(_d==6){
-    _x = sizeofmsg();
-  }
-
-  if(_x==0){
-    tratamsg();
-  }else{
-    listening();
-  }
-}
-
-void Javino::aborta(){
-	_msg = false;
-    _x=0;
-}
-
-int Javino::sizeofmsg(){
-    int x = forInt(_arraymsg[5]);
-    int y = forInt(_arraymsg[4]);
-    int convertido = x+(y*16);
-    return convertido;
-}
-
-void Javino::tratamsg(){
-  if(preambulo()){
-	_msg=true;
-    _finalymsg = char2string(_arraymsg,_d);
-  }else{
-	_msg=false;
-  }
-}
-
-boolean Javino::preambulo(){
-    boolean out =false;
-  if((_arraymsg[0]=='f')&&(_arraymsg[1]=='f')&&(_arraymsg[2]=='f')&&(_arraymsg[3]=='e')){
-    out=true;
-  }
-  return out;
-}
-
-
-int Javino::forInt(char v){
-  int vI=0;
-  switch (v) {
-    case '1': vI=1;  break;
-    case '2': vI=2;  break;
-    case '3': vI=3;  break;
-    case '4': vI=4;  break;
-    case '5': vI=5;  break;
-    case '6': vI=6;  break;
-    case '7': vI=7;  break;
-    case '8': vI=8;  break;
-    case '9': vI=9;  break;
-    case 'a': vI=10; break;
-    case 'b': vI=11; break;
-    case 'c': vI=12; break;
-    case 'd': vI=13; break;
-    case 'e': vI=14; break;
-    case 'f': vI=15; break;
-  }
-  return vI;
-}
-
-String Javino::char2string(char in[], int sizein){
-  String saida;
-  for(int i=6;i<sizein;i++){
-    saida=saida+in[i];
-  }
-  return saida;
-}
-
-
-String Javino::int2hex(int v){
-    String  stringOne =  String(v, HEX);
-    if(v<16){
-      stringOne="0"+stringOne;
+void Javino::readSerial() {
+  while (Serial.available()){
+    if(_round==0){
+      _time = millis();
+      _finalymsg = "";
+    }else if((_round>0) && (_time+300<millis())){
+      _sizeMSG = "";
+      _round=0;
+      _size = 0;
+      _finalymsg = "";
+      _msg = false;
+      _time = millis();
     }
-  return stringOne;
+    
+    char inChar = (char)Serial.read();
+    _round++;
+    
+    if(((_round==1 | _round==2 | _round==3) && inChar!='f') | (_round==4 && inChar!='e')){
+      _round=0;
+      _size = 0;
+      _finalymsg = "";
+      _sizeMSG = "";
+      _msg = false;
+    }else if(_round==5 | _round==6 ){
+      _msg = false;
+      _sizeMSG += inChar;
+      if(_round==6){
+        _size = (strtol(_sizeMSG.c_str(), NULL, 16))+6;
+        _sizeMSG = "";
+      }
+    }else if(_round>6){
+      if(_round<_size){
+        _msg = false;
+        _finalymsg += inChar;
+      }else if (_round=_size){
+        _finalymsg += inChar;
+        _round=0;
+        _size = 0;
+        _msg = true;
+      }
+    }
+  }
 }
-
