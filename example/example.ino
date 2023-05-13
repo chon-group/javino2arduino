@@ -3,7 +3,7 @@ Javino javino;
 
 void serialEvent(){
  /*
- * The serialEvent() function handles interrupts coming from the serial port.
+ * The serialEvent() function handles interruptions coming from the serial port.
  * 
  * NOTE: The serialEvent() feature is not available on the Leonardo, Micro, or other ATmega32U4 based boards. 
  * https://docs.arduino.cc/built-in-examples/communication/SerialEvent 
@@ -25,7 +25,7 @@ void loop() {
  }
 }
 
-/* Sends to agent the exogenous environment perceptions */
+/* It sends the exogenous environment's perceptions to the agent. */
 String getPercepts(){
   String beliefs = 
           "resourceName(myArduino);"
@@ -34,11 +34,16 @@ String getPercepts(){
   return beliefs;
 }
 
-/* Implements the agent deliberations in the exogenous environment */
+/* It implements the command to be executed in the exogenous environment. 
+*
+* NOTE: Every command must reflect in a function. 
+*
+*/
 void ledOn(){
   digitalWrite(13,HIGH); 
 }
 
+/* It implements the command to be executed in the exogenous environment. */
 void ledOff(){
   digitalWrite(13,LOW); 
 }
