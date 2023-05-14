@@ -6,19 +6,19 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-Javino	KEYWORD1
+Javino	KEYWORD1	Javino
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-sendmsg	KEYWORD2
-getmsg	KEYWORD2
-availablemsg KEYWORD2
-readserial	KEYWORD2
+start	KEYWORD2
+getMsg	KEYWORD2
+sendMsg	KEYWORD2
+availableMsg	KEYWORD2
+readSerial	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-Chon	LITERAL1
