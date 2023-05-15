@@ -28,10 +28,15 @@ void loop() {
 /* It sends the exogenous environment's perceptions to the agent. */
 String getPercepts(){
   String beliefs = 
-          "resourceName(myArduino);"
-          "ledStatus("+String(digitalRead(13))+");"; 
-          
+    "resourceName(myArduino);"+
+    getLedStatus(); 
+            
   return beliefs;
+}
+
+String getLedStatus(){
+  if(digitalRead(13)==1) return "ledStatus(on);";
+  else return "ledStatus(off);";
 }
 
 /* It implements the command to be executed in the exogenous environment. 
