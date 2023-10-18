@@ -12,7 +12,7 @@ Version Stable 1.7
 #define Javino_h
 
 #include "Arduino.h"
-#include "../lib/StandardCplusplus/map"
+#include "../lib/StdCpp/map"
 
 class Javino
 {
