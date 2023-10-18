@@ -1,3 +1,0 @@
-[submodule "lib/StandardCplusplus"]
-	path = lib/StandardCplusplus
-	url = git@github.com:chon-group/StandardCplusplus.git
