@@ -12,16 +12,17 @@ Javino	KEYWORD1	Javino
 # Methods and Functions (KEYWORD2)
 #######################################
 
-act             KEYWORD2
-addPercept      KEYWORD2
+perceive	KEYWORD2
+act		KEYWORD2
+addPercept	KEYWORD2
+start		KEYWORD2
+getMsg		KEYWORD2
+sendMsg		KEYWORD2
 availableMsg	KEYWORD2
-clearPercepts   KEYWORD2
-getMsg	        KEYWORD2
-perceive        KEYWORD2
-readSerial	    KEYWORD2
-run             KEYWORD2
-sendMsg	        KEYWORD2
-start	        KEYWORD2
+readSerial	KEYWORD2
+run		KEYWORD2
+clearPercepts	KEYWORD2
+
 
 #######################################
 # Constants (LITERAL1)
