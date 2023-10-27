@@ -16,6 +16,9 @@ perceive	KEYWORD2
 act		KEYWORD2
 addPercept	KEYWORD2
 start		KEYWORD2
+requestAction		KEYWORD2
+sendPercepts		KEYWORD2
+requestPercepts		KEYWORD2
 getMsg		KEYWORD2
 sendMsg		KEYWORD2
 availableMsg	KEYWORD2

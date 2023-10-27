@@ -25,15 +25,30 @@ void Javino::start(int baudRate){
 
 void Javino::run(){
   if(availableMsg()){
-    if(getMsg() == "getPercepts"){
+    if(requestPercepts()){
       callback();
-      sendMsg(_percepts);
-      clearPercepts();
+      sendPercepts();
     }
     else{
       Javino::act[getMsg()]();
     } 
   }
+}
+
+boolean Javino::requestAction(String strCommand){
+   if(getMsg() == strCommand){
+     return true;
+   }else{
+     return false;
+   }
+}
+
+boolean Javino::requestPercepts(){
+  if(getMsg() == "getPercepts"){
+    return true;
+  }else{
+    return false;
+  }  
 }
 
 void Javino::perceive(PerceiveCallback funcao){
@@ -42,6 +57,11 @@ void Javino::perceive(PerceiveCallback funcao){
 
 void Javino::addPercept(String newPercept){
   _percepts = _percepts+newPercept+";"; 
+}
+
+void Javino::sendPercepts(){
+  sendMsg(_percepts);
+  clearPercepts();
 }
 
 void Javino::clearPercepts(){

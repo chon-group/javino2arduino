@@ -21,9 +21,12 @@ class Javino
     void sendMsg(String msg);
     String getMsg();
     boolean availableMsg();
+    boolean requestPercepts();
+    boolean requestAction(String strCommand);
     void readSerial();
     void addPercept(String newPercept);
     void clearPercepts();
+    void sendPercepts();
     std::map<String, void(*)()> act;
     void run();
     typedef void (*PerceiveCallback)();
