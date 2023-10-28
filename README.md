@@ -1,8 +1,5 @@
 # Javino Library for Arduino
 
-This library provides Javino (a protocol for exchange messages between cognitive agents and their physical resources) for Arduino boards.
-
-
 This repository provides the Javino protocol for Arduino boards. Javino is a serial message's error check protocol for exchanging messages between high-end and low-end IoT devices over serial communication. 
 
 When a high-level software needs to act in the environment, it is necessary to transmit its command to the microcontroller where the actuators are connected,  providing a bridge between the software's external actions and the microcontroller’s functions. In the same way, when the high-level software needs to sense the environment, the data perceived by sensors has to be sent.
