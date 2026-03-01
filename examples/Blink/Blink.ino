@@ -1,20 +1,18 @@
-#include <Javino.h>
+#include <Javino.h>   /* https://javino.chon.group */
+#define pinLED 13
 Javino javino;
 
 void setup() {
- pinMode(13,OUTPUT);
+  pinMode(pinLED,OUTPUT);
 
- /* Javino Acts and Percept description */
- javino.act["ledOn"]  = ledOn;
- javino.act["ledOff"] = ledOff;
- javino.perceive(getExogenousPerceptions);
- javino.start(9600);
-
+  /* Javino Acts and Percept description */
+  javino.act["ledOn"]  = ledOn;
+  javino.act["ledOff"] = ledOff;
+  javino.perceive(getExogenousPerceptions);
+  javino.start(9600);
 }
 
-void loop() {
-  javino.run();
-}
+void loop() {javino.run();}
 
 /*
  * The serialEvent() function handles interruptions coming from the serial port.
@@ -23,16 +21,17 @@ void loop() {
  * https://docs.arduino.cc/built-in-examples/communication/SerialEvent 
  * 
  */
-void serialEvent(){
-  javino.readSerial();
-}
+void serialEvent(){javino.readSerial();}
 
 /* 
   It sends the exogenous environment's perceptions to the agent. 
 */
 void getExogenousPerceptions(){ 
-  if(digitalRead(13)==1)javino.addPercept("ledStatus(on)");
-  else javino.addPercept("ledStatus(off)");
+  if(digitalRead(pinLED)){
+    javino.addPercept("ledStatus(on)");
+  }else {
+    javino.addPercept("ledStatus(off)");
+  }
 }
 
 /* It implements the commands to be executed in the exogenous environment. 
@@ -40,10 +39,5 @@ void getExogenousPerceptions(){
 * NOTE: Every command must reflect in a function. 
 *
 */
-void ledOn(){
-  digitalWrite(13,HIGH); 
-}
-
-void ledOff(){
-  digitalWrite(13,LOW); 
-}
+void ledOn(){digitalWrite(pinLED,HIGH);}
+void ledOff(){digitalWrite(pinLED,LOW);}
