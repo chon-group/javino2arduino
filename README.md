@@ -101,9 +101,6 @@ Simplex transmission from software to hardware.
 
 The controller continuously pushes sensor data to the software-side.
 
-
----
-
 ### Request Mode (Half-Duplex: Software ↔ Hardware) — Recommended
 
 The Request Mode implements a **half-duplex request–response interaction pattern** between the software-side (MAS) and the hardware-side (microcontroller).
