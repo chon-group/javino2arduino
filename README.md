@@ -57,7 +57,8 @@ The protocol was designed specifically for embedded MAS environments.
 ---
 ## Message Protocol
 
-![Javino Message Format](.img/javino-message-format.png)
+<img width="712" height="350" alt="javino-message-format" src="https://github.com/user-attachments/assets/2fb8b9df-8137-4022-8b40-d9cda3aff766" />
+
 
 Each Javino message is structured in three fields:
 
@@ -141,7 +142,8 @@ Javino is built for structured, reliable exchange — not raw high-speed streami
 
 ## When to Use Javino
 
-![Javino in ARGO](.img/javino-with-ARGO.png)
+<img width="695" height="556" alt="javino-with-ARGO" src="https://github.com/user-attachments/assets/bc2056b8-55ee-4733-babb-28bd03b72bdc" />
+
 
 Use Javino if:
 
