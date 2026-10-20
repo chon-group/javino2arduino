@@ -1,7 +1,9 @@
 # Javino  
 ### Middleware for Embedded Multi-Agent Robotic Systems
-
 Javino is a bidirectional serial communication middleware designed to integrate Multi-Agent Systems (MAS) with Arduino-based robotic hardware.
+
+<img width="650" height="441" alt="image" src="https://github.com/user-attachments/assets/fa347397-b98d-411a-914f-9d6909781108" />
+
 
 It was originally developed to support embedded robotic-agent architectures where:
 
