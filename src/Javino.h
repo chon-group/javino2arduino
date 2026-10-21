@@ -1,11 +1,11 @@
 /*
   Javino.h - Library communication for Arduino and Jason.
-Version Stable 1.7
+  Version Stable 1.7.3
   Created by Lazarin, NM and Pantoja, CE - January 29, 2015.
   nilson.lazarin@cefet-rj.br
 	carlos.pantoja@cefet-rj.br
 
-  Updated in 2023-10-18
+  Updated in 2026-10-21
 */
 
 #ifndef Javino_h

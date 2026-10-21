@@ -1,11 +1,11 @@
 /*
   Javino.cpp - Library communication for Arduino and Jason.
-Version Stable 1.7
+  Version Stable 1.7.3
   Created by Lazarin, NM and Pantoja, CE - January 29, 2015.
 	nilson.lazarin@cefet-rj.br
 	carlos.pantoja@cefet-rj.br
 
-  Updated in 2023-10-18
+  Updated in 2026-10-21
 */
 
 #include "Arduino.h"
@@ -13,6 +13,7 @@ Version Stable 1.7
 
 void Javino::start(int baudRate){
   _finalymsg.reserve(255);
+  _percepts.reserve(180);
   _sizeMSG = "";
   _finalymsg = "";
   _percepts = "";
@@ -56,7 +57,8 @@ void Javino::perceive(PerceiveCallback funcao){
 }
 
 void Javino::addPercept(String newPercept){
-  _percepts = _percepts+newPercept+";"; 
+    _percepts += newPercept;
+    _percepts += ';';
 }
 
 void Javino::sendPercepts(){
